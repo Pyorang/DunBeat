@@ -14,6 +14,9 @@ public class PlayerMove : MonoBehaviour
     public bool canRolling;      //구르기 가능한지
 
     //컴포넌트
+    [SerializeField]
+    PlayerStats stats;
+
     private Rigidbody2D rb;
 
     void Start()
@@ -53,6 +56,7 @@ public class PlayerMove : MonoBehaviour
             isRolling = true;
             canRolling = false;
             rb.velocity = 2  * rb.velocity;
+            stats.Rollingincible();
             Invoke("Rolling", 1);
             Invoke("RollCoolTime", RollingCoolTime);
         }

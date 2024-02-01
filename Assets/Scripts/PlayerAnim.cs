@@ -8,12 +8,15 @@ public class PlayerAnim : MonoBehaviour
     private float RollingAnimCoolTime;
 
     public bool Rolling;
+    public bool isHurting;
 
     //필요한 컴포넌트
     private Animator anim;
     private SpriteRenderer sr;
     [SerializeField]
     private PlayerMove pm;
+    [SerializeField]
+    private PlayerStats stats;
 
     void Start()
     {
@@ -27,6 +30,7 @@ public class PlayerAnim : MonoBehaviour
         ChangeAnim();
         ChangeFlip();
         ChangeRollAnim();
+        ChangeHurtAnim();
     }
 
     void ChangeAnim()
@@ -59,9 +63,26 @@ public class PlayerAnim : MonoBehaviour
         }
     }
 
+    void ChangeHurtAnim()
+    {
+        if(isHurting)
+        {
+            isHurting = false;
+            pm.canRolling = false;
+            sr.color = new Color(191/255f, 191 / 255f, 191 / 255f, 255 / 255f);
+            anim.SetTrigger("isHurt");
+            Invoke("EndHurtAnim", 1f);
+        }
+    }
+
     void RollAnimCoolTime()
     {
         Rolling = false;
-        anim.SetTrigger("EndRoll");
+    }
+
+    void EndHurtAnim()
+    {
+        pm.canRolling = true;
+        sr.color = new Color(255 / 255f, 255 / 255f, 255 / 255f, 255 / 255f);
     }
 }
