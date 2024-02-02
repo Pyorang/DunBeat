@@ -33,15 +33,11 @@ public class Spikes : MonoBehaviour
 
     //필요한 컴포넌트
     private SpriteRenderer spriteRenderer;
-    private PlayerAnim Base;
-    private PlayerAnim Hair;
     private PlayerStats PlayerStats;
 
     void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        Base = GameObject.FindWithTag("PlayerBody").GetComponent<PlayerAnim>();
-        Hair = GameObject.FindWithTag("PlayerHair").GetComponent<PlayerAnim>();
         PlayerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
         isAttacking = false;
         StartCoroutine("SCnTOr");
@@ -100,8 +96,6 @@ public class Spikes : MonoBehaviour
     {
         if (isAttacking && !PlayerStats.isInvincible)
         {
-            Base.isHurting = true;
-            Hair.isHurting = true;
             PlayerStats.Hurt();
         }
     }

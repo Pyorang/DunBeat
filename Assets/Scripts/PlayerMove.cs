@@ -80,4 +80,9 @@ public class PlayerMove : MonoBehaviour
             isMoving = false;
         }
     }
+
+    void Attack()
+    {
+
+    }
 }

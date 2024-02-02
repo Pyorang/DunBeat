@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 1334a59d0cd7e1c41a3d547ad562ec1d
+guid: bb76a03898fc16f468bc49d213319c16
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -136,7 +136,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: spr_jump_strip9_0
+      name: spr_idle_strip9_0
       rect:
         serializedVersion: 2
         x: 39
@@ -150,20 +150,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 485c312c037ffdf4fa84480953f41082
-      internalID: 1075276010
+      spriteID: 6ee3dedd8d50e8840bb18903680e849a
+      internalID: 1521652336
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_jump_strip9_1
+      name: spr_idle_strip9_1
       rect:
         serializedVersion: 2
-        x: 136
+        x: 135
         y: 25
-        width: 16
-        height: 14
+        width: 18
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -171,61 +171,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7a08fac01657289479cfbeef5188f7e2
-      internalID: -579099628
+      spriteID: e137bab1620c7ce428297a16c52e0d62
+      internalID: -1805907866
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_jump_strip9_2
+      name: spr_idle_strip9_2
       rect:
         serializedVersion: 2
         x: 231
         y: 25
         width: 18
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: ff1059a5420cb374799125b88589a6bb
-      internalID: 1877664532
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_jump_strip9_3
-      rect:
-        serializedVersion: 2
-        x: 327
-        y: 26
-        width: 18
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 76ccec7e13b409243a8d57ad170e2cf4
-      internalID: 689414108
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_jump_strip9_4
-      rect:
-        serializedVersion: 2
-        x: 423
-        y: 28
-        width: 18
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -234,18 +192,18 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 126bb911d40dbe64f9243f008b6bced7
-      internalID: 1155325259
+      spriteID: ff7ac397e9a4ab74e8551ecc87e9d277
+      internalID: 641109667
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_jump_strip9_5
+      name: spr_idle_strip9_3
       rect:
         serializedVersion: 2
-        x: 519
-        y: 29
+        x: 327
+        y: 25
         width: 18
         height: 15
       alignment: 0
@@ -255,19 +213,19 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8a8b454ba5951d243be201726889f37a
-      internalID: -921586109
+      spriteID: 2aded09a80893774183970f8fb62cc40
+      internalID: 1242502576
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_jump_strip9_6
+      name: spr_idle_strip9_4
       rect:
         serializedVersion: 2
-        x: 616
-        y: 27
-        width: 16
+        x: 423
+        y: 25
+        width: 18
         height: 15
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -276,40 +234,61 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a88672a503cca9f4495155bbafef2286
-      internalID: -1167239556
+      spriteID: da7a22c9db8f9d54a93023f307a9052b
+      internalID: 179504534
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: spr_jump_strip9_7
+      name: spr_idle_strip9_5
+      rect:
+        serializedVersion: 2
+        x: 519
+        y: 25
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e828556dc8af9e94e8a863c38c6249d6
+      internalID: -502144508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_idle_strip9_6
+      rect:
+        serializedVersion: 2
+        x: 615
+        y: 25
+        width: 18
+        height: 15
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb302a5988a703246b75a2ba04824ce3
+      internalID: -1474726880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: spr_idle_strip9_7
       rect:
         serializedVersion: 2
         x: 711
         y: 25
         width: 18
-        height: 14
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 85d7c4edcb7fa9c4da97496f25e8d23c
-      internalID: -509534121
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: spr_jump_strip9_8
-      rect:
-        serializedVersion: 2
-        x: 807
-        y: 25
-        width: 18
         height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -318,8 +297,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 24e40a57c5308d842b1e6a55e90a960e
-      internalID: 794640210
+      spriteID: 4fe6f972ab3f3fc49ac97b5323fd601c
+      internalID: -1346959727
       vertices: []
       indices: 
       edges: []
@@ -335,15 +314,14 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      spr_jump_strip9_0: 1075276010
-      spr_jump_strip9_1: -579099628
-      spr_jump_strip9_2: 1877664532
-      spr_jump_strip9_3: 689414108
-      spr_jump_strip9_4: 1155325259
-      spr_jump_strip9_5: -921586109
-      spr_jump_strip9_6: -1167239556
-      spr_jump_strip9_7: -509534121
-      spr_jump_strip9_8: 794640210
+      spr_idle_strip9_0: 1521652336
+      spr_idle_strip9_1: -1805907866
+      spr_idle_strip9_2: 641109667
+      spr_idle_strip9_3: 1242502576
+      spr_idle_strip9_4: 179504534
+      spr_idle_strip9_5: -502144508
+      spr_idle_strip9_6: -1474726880
+      spr_idle_strip9_7: -1346959727
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

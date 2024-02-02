@@ -11,10 +11,21 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private int playerAP;
 
+    private PlayerAnim Base;
+    private PlayerAnim Hair;
+
+    void Start()
+    {
+        Base = GameObject.FindWithTag("PlayerBody").GetComponent<PlayerAnim>();
+        Hair = GameObject.FindWithTag("PlayerHair").GetComponent<PlayerAnim>();
+    }
+
     public void Hurt()
     {
         isInvincible = true;
         playerHP--;
+        Base.isHurting = true;
+        Hair.isHurting = true;
         StartCoroutine("invincibleOff");
     }
 
