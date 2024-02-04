@@ -6,6 +6,8 @@ public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
     private float MoveSpeed;    //이동속도
+    [SerializeField]
+    private float AttackRange;      //공격 사거리
 
     public float RollingCoolTime; //구르기 쿨타임
     public bool isRolling;       //구르기 여부
@@ -19,6 +21,9 @@ public class PlayerMove : MonoBehaviour
 
     private Rigidbody2D rb;
 
+    private GameObject Base;
+    private GameObject Hair;
+
     void Start()
     {
         isRolling = false;
@@ -26,27 +31,69 @@ public class PlayerMove : MonoBehaviour
         isFlipped = false;
         canRolling = true;
         rb = GetComponent<Rigidbody2D>();
+
+        Base = GameObject.FindWithTag("PlayerBody");
+        Hair = GameObject.FindWithTag("PlayerHair");
     }
 
     // Update is called once per frame
     void Update()
     {
-        Move();
-        Roll();
-        CheckMoving();
+        if(!stats.isDead)
+        {
+            Move();
+            ChangeFlip();
+
+            if(!stats.isHurting)
+            {
+                Roll();
+                Attack();
+            }
+        }
     }
 
+    //플레이어 좌우 향하기
+    void ChangeFlip()
+    {
+        if (isMoving)
+        {
+            if (isFlipped == true)
+            {
+                Base.GetComponent<SpriteRenderer>().flipX = true;
+                Hair.GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                Base.GetComponent<SpriteRenderer>().flipX = false;
+                Hair.GetComponent<SpriteRenderer>().flipX = false;
+            }
+        }
+    }
+
+    //플레이어 이동
     void Move()
     {
         if(!isRolling)
             rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0).normalized * MoveSpeed;
-        if(rb.velocity != Vector2.zero)
+
+        if (rb.velocity != Vector2.zero)
+        {
             isMoving = true;
-        else isMoving = false;
+            Base.GetComponent<Animator>().SetBool("isMove", true);
+            Hair.GetComponent<Animator>().SetBool("isMove", true);
+        }
+        else
+        {
+            isMoving = false;
+            Base.GetComponent<Animator>().SetBool("isMove", false);
+            Hair.GetComponent<Animator>().SetBool("isMove", false);
+        }
+
         if (rb.velocity.x < 0)
             isFlipped = true;
         else if (rb.velocity.x >0)
             isFlipped = false;
+
     }
 
     void Roll()
@@ -55,8 +102,10 @@ public class PlayerMove : MonoBehaviour
         {
             isRolling = true;
             canRolling = false;
+            Base.GetComponent<Animator>().SetTrigger("isRoll");
+            Hair.GetComponent<Animator>().SetTrigger("isRoll");
             rb.velocity = 2  * rb.velocity;
-            stats.Rollingincible();
+            stats.RollingIncible();
             Invoke("Rolling", 1);
             Invoke("RollCoolTime", RollingCoolTime);
         }
@@ -73,16 +122,49 @@ public class PlayerMove : MonoBehaviour
         canRolling = true;
     }
 
-    void CheckMoving()
+    void Attack()
     {
-        if(rb.velocity == Vector2.zero)
+        if(!isRolling)
         {
-            isMoving = false;
+            GameObject enemy = FindNearestEnemy();
+            if (enemy != null)
+            {
+                if (Vector2.Distance(gameObject.transform.position, enemy.transform.position) <= AttackRange)
+                {
+                    if (Input.GetKeyDown(KeyCode.Z))     //리듬 성공할 경우 추가할 것
+                    {
+                        Base.GetComponent<Animator>().SetTrigger("isAttack");
+                        Hair.GetComponent<Animator>().SetTrigger("isAttack");
+                        enemy.GetComponent<Enemy>().damaged(gameObject, stats.playerAP);
+                    }
+                }
+            }
         }
     }
 
-    void Attack()
+    //가장 가까운 적 찾기
+    GameObject FindNearestEnemy()
     {
+        List<GameObject> FoundObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
 
+        if (FoundObjects.Count > 0)
+        {
+            GameObject enemy = FoundObjects[0];
+            float shortDis = Vector2.Distance(gameObject.transform.position, enemy.transform.position);
+
+            foreach (GameObject found in FoundObjects)
+            {
+                float Distance = Vector2.Distance(gameObject.transform.position, found.transform.position);
+
+                if (Distance < shortDis)
+                {
+                    enemy = found;
+                    shortDis = Distance;
+                }
+            }
+            return enemy;
+        }
+
+        else return null;
     }
 }

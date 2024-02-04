@@ -7,6 +7,7 @@ TagManager:
   - Traps
   - PlayerBody
   - PlayerHair
+  - Enemy
   layers:
   - Default
   - TransparentFX
