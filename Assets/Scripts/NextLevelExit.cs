@@ -9,8 +9,10 @@ public class NextLevelExit : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") && Input.GetKeyDown(KeyCode.Space))
         {
-            Debug.Log("Next Stage");
-            //SceneManager.LoadScene("");
+            string nextStage = "Stage" + (GameManager.instance.currentStageIndex + 1);
+            Debug.Log(nextStage);
+            GameManager.instance.nextStage();
+            SceneManager.LoadScene(nextStage);
         }
     }
 }

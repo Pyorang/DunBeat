@@ -8,22 +8,36 @@ public class PlayerStats : MonoBehaviour
 
     public int playerHP;
     public int playerAP;
+    public int doorStageNum;
+    public int doorWaveNum;
     public bool isDead;
     public bool isHurting;
+    private Vector3 goDirection;
 
     private GameObject Base;
     private GameObject Hair;
 
     private PlayerMove pm;
+    private Rigidbody2D rb;
 
     void Start()
     {
         isHurting = false;
         isDead = false;
+        goDirection = Vector3.right;
 
         Base = GameObject.FindWithTag("PlayerBody");
         Hair = GameObject.FindWithTag("PlayerHair");
         pm = GameObject.FindWithTag("Player").GetComponent<PlayerMove>();
+
+        rb = GetComponent<Rigidbody2D>();
+    }
+
+    void Update()
+    {
+        doorStageNum = GameManager.instance.currentStageIndex;
+        doorWaveNum = GameManager.instance.currentWaveNum;
+        CanOpenDoor();
     }
 
     public void Hurt()
@@ -37,16 +51,19 @@ public class PlayerStats : MonoBehaviour
 
         else
         {
-            pm.canRolling = false;
+            if(!isDead)
+            {
+                pm.canRolling = false;
 
-            Base.GetComponent<SpriteRenderer>().color = new Color(191 / 255f, 191 / 255f, 191 / 255f, 255 / 255f);
-            Hair.GetComponent<SpriteRenderer>().color = new Color(191 / 255f, 191 / 255f, 191 / 255f, 255 / 255f);
+                Base.GetComponent<SpriteRenderer>().color = new Color(191 / 255f, 191 / 255f, 191 / 255f, 255 / 255f);
+                Hair.GetComponent<SpriteRenderer>().color = new Color(191 / 255f, 191 / 255f, 191 / 255f, 255 / 255f);
 
-            Base.GetComponent<Animator>().SetTrigger("isHurt");
-            Hair.GetComponent<Animator>().SetTrigger("isHurt");
+                Base.GetComponent<Animator>().SetTrigger("isHurt");
+                Hair.GetComponent<Animator>().SetTrigger("isHurt");
+            }
         }
 
-        StartCoroutine("invincibleOff");
+        StartCoroutine("InvincibleOff");
         StartCoroutine("EndHurtAnim");
     }
 
@@ -54,21 +71,44 @@ public class PlayerStats : MonoBehaviour
     {
         isDead = true;
         
+        pm.GetComponent<Rigidbody2D>().mass = 1000000;
         pm.GetComponent<Rigidbody2D>().velocity = Vector3.zero;
 
         Base.GetComponent<Animator>().SetTrigger("isDead");
         Hair.GetComponent<Animator>().SetTrigger("isDead");
-        
+
+        GameManager.instance.resetStageInfo();
+
         StartCoroutine("DestroyPlayer");
     }
 
     public void RollingIncible()
     {
         isInvincible = true;
-        StartCoroutine("invincibleOff");
+        StartCoroutine("InvincibleOff");
     }
 
-    IEnumerator invincibleOff()
+    void CanOpenDoor()
+    {
+        if (Input.GetKeyDown(KeyCode.DownArrow))
+            goDirection = Vector3.down;
+        else if(Input.GetKeyDown(KeyCode.UpArrow))
+            goDirection = Vector3.up;
+        else if (Input.GetKeyDown(KeyCode.RightArrow))
+            goDirection = Vector3.right;
+        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+            goDirection = Vector3.left;
+
+        Debug.DrawRay(rb.position, goDirection, new Color(1, 0, 0));
+        RaycastHit2D hit = Physics2D.Raycast(rb.position, goDirection, 1, LayerMask.GetMask("Door"));
+        if (hit.collider != null)
+        {
+            Debug.Log(hit.collider.name);
+            hit.collider.GetComponent<NextWaveDoor>().DoorOpen();
+        }
+    }
+
+    IEnumerator InvincibleOff()
     {
         yield return new WaitForSeconds(1f);
         isInvincible = false;

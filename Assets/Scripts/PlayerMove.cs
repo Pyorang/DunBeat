@@ -5,9 +5,9 @@ using UnityEngine;
 public class PlayerMove : MonoBehaviour
 {
     [SerializeField]
-    private float MoveSpeed;    //이동속도
+    private float moveSpeed;    //이동속도
     [SerializeField]
-    private float AttackRange;      //공격 사거리
+    private float attackRange;      //공격 사거리
 
     public float RollingCoolTime; //구르기 쿨타임
     public bool isRolling;       //구르기 여부
@@ -74,7 +74,7 @@ public class PlayerMove : MonoBehaviour
     void Move()
     {
         if(!isRolling)
-            rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0).normalized * MoveSpeed;
+            rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0).normalized * moveSpeed;
 
         if (rb.velocity != Vector2.zero)
         {
@@ -129,13 +129,13 @@ public class PlayerMove : MonoBehaviour
             GameObject enemy = FindNearestEnemy();
             if (enemy != null)
             {
-                if (Vector2.Distance(gameObject.transform.position, enemy.transform.position) <= AttackRange)
+                if (Vector2.Distance(gameObject.transform.position, enemy.transform.position) <= attackRange)
                 {
                     if (Input.GetKeyDown(KeyCode.Z))     //리듬 성공할 경우 추가할 것
                     {
                         Base.GetComponent<Animator>().SetTrigger("isAttack");
                         Hair.GetComponent<Animator>().SetTrigger("isAttack");
-                        enemy.GetComponent<Enemy>().damaged(gameObject, stats.playerAP);
+                        enemy.GetComponent<Enemy>().Damaged(gameObject, stats.playerAP);
                     }
                 }
             }

@@ -7,9 +7,9 @@ public class Goblin : Enemy
 {
     protected override IEnumerator Battle()
     {
-        if(!Player.GetComponent<PlayerStats>().isDead || !isDead)
+        if(!player.GetComponent<PlayerStats>().isDead || !isDead)
         {
-            if (PatternNumb != 3)
+            if (patternNumb != 3)
             {
                 Moving();
                 yield return new WaitForSeconds(0.5f);
@@ -20,13 +20,13 @@ public class Goblin : Enemy
 
             else
             {
-                attack();
+                Attack();
                 yield return new WaitForSeconds(2);
                 isAttacking = false;
             }
 
-            PatternNumb++;
-            if(PatternNumb > 3) {PatternNumb = 0;}
+            patternNumb++;
+            if(patternNumb > 3) {patternNumb = 0;}
             StartCoroutine("Battle");
         }
     }

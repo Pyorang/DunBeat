@@ -7,15 +7,15 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected int maxHP;          //최대 HP
     [SerializeField]
-    protected float EyeDistance;    //시야
+    protected float eyeDistance;    //시야
     [SerializeField]
-    protected float EnemySpeed;  //적 이동 속도
+    protected float enemySpeed;  //적 이동 속도
     [SerializeField]
     protected float attackRange;      //공격 범위
     [SerializeField]
     protected int currentHP;      //현재 HP
     [SerializeField]
-    protected float DieAnimTime;    //죽는데 걸리는 시간
+    protected float dieAnimTime;    //죽는데 걸리는 시간
 
     protected bool isDead;      //죽었는지
     protected bool isDamaged;     //플레이어에게 데미지를 입은 경우
@@ -24,17 +24,17 @@ public class Enemy : MonoBehaviour
     protected bool hasDetected;   //플레이어를 탐지한 경우
     protected bool startBattle;   //배틀 시작
     protected bool isBattle;      //전투모드에 들어간 경우
-    protected int PatternNumb;    //현재 패턴 번호
+    protected int patternNumb;    //현재 패턴 번호
 
     //필요한 컴포넌트
     protected Rigidbody2D rb;
     protected SpriteRenderer sr;
     protected Animator anim;
-    protected GameObject Player;
+    protected GameObject player;
 
     void Start()
     {
-        PatternNumb = 0;
+        patternNumb = 0;
         currentHP = maxHP;
         isDead = false;
         isDamaged = false;
@@ -43,15 +43,15 @@ public class Enemy : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
-        Player = GameObject.FindWithTag("Player");
+        player = GameObject.FindWithTag("Player");
     }
 
     void Update()
     {
-        if (Player != null)
+        if (player != null)
         {
             BeforeBattle();
-            flipEnemy();
+            FlipEnemy();
         }
         else
         {
@@ -64,7 +64,7 @@ public class Enemy : MonoBehaviour
     {
         if (!isBattle)
         {
-            detecting();
+            Detecting();
             if (isBattle || isDamaged)
             {
                 isBattle = true;
@@ -75,12 +75,12 @@ public class Enemy : MonoBehaviour
     }
 
     //적을 찾을 때
-    protected void detecting()
+    protected void Detecting()
     {
         if (!hasDetected)
         {
-            float PlayerDistance = Vector2.Distance(transform.position, Player.transform.position);
-            if (PlayerDistance < EyeDistance)
+            float playerDistance = Vector2.Distance(transform.position, player.transform.position);
+            if (playerDistance < eyeDistance)
             {
                 hasDetected = true;
                 isBattle = true;
@@ -94,28 +94,28 @@ public class Enemy : MonoBehaviour
         if (isBattle)
         {
             isMoving = true;
-            rb.velocity = (Player.transform.position - transform.position).normalized * EnemySpeed;
+            rb.velocity = (player.transform.position - transform.position).normalized * enemySpeed;
         }
     }
 
     //공격 함수
-    protected void attack()
+    protected void Attack()
     {
         isAttacking = true;
         anim.SetTrigger("isAttack");
 
-        if (Vector2.Distance(Player.transform.position, transform.position) <= attackRange)
+        if (Vector2.Distance(player.transform.position, transform.position) <= attackRange)
         {
-            Player.GetComponent<PlayerStats>().Hurt();
+            player.GetComponent<PlayerStats>().Hurt();
         }
     }
 
     //데미지 적용 함수
-    public void damaged(GameObject gameobject, int damage)
+    public void Damaged(GameObject gameobject, int damage)
     {
         currentHP -= damage;
         if (currentHP <= 0)
-            die();
+            Die();
         else
         {
             isDamaged = true;
@@ -126,7 +126,7 @@ public class Enemy : MonoBehaviour
     }
 
     //적 죽음 처리
-    protected void die()
+    protected void Die()
     {
         isDead = true;
         rb.velocity = Vector2.zero;
@@ -136,9 +136,9 @@ public class Enemy : MonoBehaviour
         StartCoroutine("DestroyEnemy");
     }
 
-    protected void flipEnemy()
+    protected void FlipEnemy()
     {
-        if (Player.transform.position.x <= transform.position.x)
+        if (player.transform.position.x <= transform.position.x)
             sr.flipX = true;
         else
             sr.flipX = false;
@@ -151,8 +151,11 @@ public class Enemy : MonoBehaviour
 
     IEnumerator DestroyEnemy()
     {
-        yield return new WaitForSeconds(DieAnimTime);
+        yield return new WaitForSeconds(dieAnimTime);
         Destroy(gameObject);
+        GameManager.instance.currentEnemyCount--;
+        if (GameManager.instance.currentEnemyCount == 0)
+            GameManager.instance.goNextWave = true;
     }
 
     IEnumerator HurtColorChange()

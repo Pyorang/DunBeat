@@ -8,11 +8,12 @@ TagManager:
   - PlayerBody
   - PlayerHair
   - Enemy
+  - Door
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Door
   - Water
   - UI
   - 
