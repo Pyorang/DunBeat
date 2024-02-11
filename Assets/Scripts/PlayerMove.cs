@@ -17,7 +17,11 @@ public class PlayerMove : MonoBehaviour
 
     //컴포넌트
     [SerializeField]
-    PlayerStats stats;
+    private PlayerStats stats;
+    [SerializeField]
+    private UI_EnemyStatus enemyStatus;
+    [SerializeField]
+    private Ui_ComboControl comboControl;
 
     private Rigidbody2D rb;
 
@@ -129,13 +133,18 @@ public class PlayerMove : MonoBehaviour
             GameObject enemy = FindNearestEnemy();
             if (enemy != null)
             {
-                if (Vector2.Distance(gameObject.transform.position, enemy.transform.position) <= attackRange)
+                if (Vector2.Distance(gameObject.transform.position, enemy.transform.position) <= attackRange && enemy.GetComponent<Enemy>().GetCurHp()>0)
                 {
                     if (Input.GetKeyDown(KeyCode.Z))     //리듬 성공할 경우 추가할 것
                     {
                         Base.GetComponent<Animator>().SetTrigger("isAttack");
                         Hair.GetComponent<Animator>().SetTrigger("isAttack");
                         enemy.GetComponent<Enemy>().Damaged(gameObject, stats.playerAP);
+
+                        enemyStatus.ChangeEnemy(enemy);
+                        enemyStatus.ShowStatus();
+
+                        comboControl.ComboSuccess();
                     }
                 }
             }
@@ -162,6 +171,7 @@ public class PlayerMove : MonoBehaviour
                     shortDis = Distance;
                 }
             }
+
             return enemy;
         }
 

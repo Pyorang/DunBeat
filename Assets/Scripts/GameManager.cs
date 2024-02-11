@@ -28,10 +28,11 @@ public class GameManager : MonoBehaviour
     }
     #endregion singleton
 
+    public int currentPlayerHealth;     
     public int currentStageIndex;       //현재 스테이지 넘버
     public int currentEnemyCount;       //현재 웨이브에서 처리해야 할 몬스터 수
     public int currentWaveNum;          //현재 웨이브 넘버
-    public bool goNextWave;            //
+    public bool goNextWave;
 
     public stageInfo[] Stages;
     public NextWaveDoor nextDoor;

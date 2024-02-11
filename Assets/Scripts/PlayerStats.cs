@@ -16,9 +16,12 @@ public class PlayerStats : MonoBehaviour
 
     private GameObject Base;
     private GameObject Hair;
+    [SerializeField]
+    private GameObject playerStatus;
 
     private PlayerMove pm;
     private Rigidbody2D rb;
+    private UI_Health uh;
 
     void Start()
     {
@@ -31,6 +34,8 @@ public class PlayerStats : MonoBehaviour
         pm = GameObject.FindWithTag("Player").GetComponent<PlayerMove>();
 
         rb = GetComponent<Rigidbody2D>();
+        uh = playerStatus.GetComponent<UI_Health>();
+        GameManager.instance.currentPlayerHealth = playerHP;
     }
 
     void Update()
@@ -44,6 +49,8 @@ public class PlayerStats : MonoBehaviour
     {
         isInvincible = true;
         playerHP--;
+        GameManager.instance.currentPlayerHealth--;
+        uh.ChangeHealthUI();
 
         //Á×À½ Ã³¸®
         if (playerHP == 0)

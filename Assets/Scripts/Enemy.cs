@@ -5,6 +5,8 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
+    protected string name;
+    [SerializeField]
     protected int maxHP;          //최대 HP
     [SerializeField]
     protected float eyeDistance;    //시야
@@ -57,6 +59,11 @@ public class Enemy : MonoBehaviour
         {
             anim.SetBool("BattleStart", false);
         }
+    }
+
+    public string GetName()
+    {
+        return name;
     }
 
     //전투 시작전 -> 시작 후로 바꿔주기
@@ -148,6 +155,9 @@ public class Enemy : MonoBehaviour
     {
         yield return null;
     }
+
+    public int GetMaxHp() { return maxHP; }
+    public int GetCurHp() { return currentHP; }
 
     IEnumerator DestroyEnemy()
     {
