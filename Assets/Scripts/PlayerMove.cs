@@ -22,6 +22,8 @@ public class PlayerMove : MonoBehaviour
     private UI_EnemyStatus enemyStatus;
     [SerializeField]
     private Ui_ComboControl comboControl;
+    [SerializeField]
+    private TimingManager timingManager;
 
     private Rigidbody2D rb;
 
@@ -137,6 +139,7 @@ public class PlayerMove : MonoBehaviour
                 {
                     if (Input.GetKeyDown(KeyCode.Z))     //리듬 성공할 경우 추가할 것
                     {
+                        timingManager.CheckTiming();
                         Base.GetComponent<Animator>().SetTrigger("isAttack");
                         Hair.GetComponent<Animator>().SetTrigger("isAttack");
                         enemy.GetComponent<Enemy>().Damaged(gameObject, stats.playerAP);

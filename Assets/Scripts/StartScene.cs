@@ -12,7 +12,6 @@ public class StartScene : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             SceneManager.LoadScene("Stage1");
-            SoundManager.instance.PlayBGM("Stage1");
             GameManager.instance.nextStage();
         }
     }

@@ -193,9 +193,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b676d4eae0769b24490c8c91e0abfe12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  monsterName: "\uACE0\uBE14\uB9B0"
   maxHP: 100
-  EyeDistance: 4
-  EnemySpeed: 4
+  eyeDistance: 0
+  enemySpeed: 0
   attackRange: 2.2
   currentHP: 0
-  DieAnimTime: 1
+  dieAnimTime: 0

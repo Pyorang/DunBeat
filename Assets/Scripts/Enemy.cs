@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [SerializeField]
-    protected string name;
+    protected string monsterName;
     [SerializeField]
     protected int maxHP;          //최대 HP
     [SerializeField]
@@ -63,7 +63,7 @@ public class Enemy : MonoBehaviour
 
     public string GetName()
     {
-        return name;
+        return monsterName;
     }
 
     //전투 시작전 -> 시작 후로 바꿔주기
