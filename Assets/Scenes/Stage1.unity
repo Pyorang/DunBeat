@@ -4773,6 +4773,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 785652205}
   m_CullTransparentMesh: 1
+--- !u!1 &790319537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 790319538}
+  - component: {fileID: 790319539}
+  m_Layer: 0
+  m_Name: Object Pool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &790319538
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790319537}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -257, y: 516.9899, z: -7.283534}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &790319539
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 790319537}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b981a6f9c87d72644a589b0f9fb0099e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectInfo:
+  - goPrefab: {fileID: 5524939633212713877, guid: 80b5bb08dd135094498fe9f97e5ee7b2, type: 3}
+    count: 15
+    tfPoolParent: {fileID: 1824942016}
 --- !u!1 &793539272
 GameObject:
   m_ObjectHideFlags: 0
@@ -35102,7 +35150,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bpm: 120
   tfNoteAppear: {fileID: 261536540}
-  goNote: {fileID: 5524939633212713877, guid: 80b5bb08dd135094498fe9f97e5ee7b2, type: 3}
 --- !u!61 &1824942018
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -36195,3 +36242,4 @@ SceneRoots:
   - {fileID: 8445414887811117178}
   - {fileID: 679573542}
   - {fileID: 460193925}
+  - {fileID: 790319538}

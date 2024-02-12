@@ -9,9 +9,12 @@ public class Note : MonoBehaviour
 
     private Image noteImage;
 
-    void Start()
+    void OnEnable()
     {
-        noteImage = GetComponent<Image>();
+        if(noteImage == null)
+            noteImage = GetComponent<Image>();
+
+        noteImage.enabled = true;
     }
 
     void Update()

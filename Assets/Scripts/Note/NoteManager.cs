@@ -9,8 +9,9 @@ public class NoteManager : MonoBehaviour
 
     [SerializeField]
     Transform tfNoteAppear = null;
-    [SerializeField]
-    GameObject goNote = null;
+    
+    //[SerializeField]
+    //GameObject goNote = null;
 
     TimingManager theTimingManager;
 
@@ -25,8 +26,11 @@ public class NoteManager : MonoBehaviour
 
         if(currentTime >= 60d / bpm)
         {
-            GameObject t_note = Instantiate(goNote, tfNoteAppear.position, Quaternion.identity);
-            t_note.transform.SetParent(this.transform);
+            GameObject t_note = ObjectPool.instance.noteQueue.Dequeue();
+            t_note.transform.position = tfNoteAppear.position;
+            t_note.SetActive(true);
+            //GameObject t_note = Instantiate(goNote, tfNoteAppear.position, Quaternion.identity);
+            //t_note.transform.SetParent(this.transform);
             theTimingManager.boxNoteList.Add(t_note);
             currentTime -= 60d / bpm;       //오차 손실 방지
             //Time.deltaTime을 더하면 완벽한 60d/bpm만큼이 아닌 오차가 생긴다.
@@ -40,7 +44,10 @@ public class NoteManager : MonoBehaviour
         if(collision.CompareTag("Note"))
         {
             theTimingManager.boxNoteList.Remove(collision.gameObject);
-            Destroy(collision.gameObject);
+
+            ObjectPool.instance.noteQueue.Enqueue(collision.gameObject);
+            collision.gameObject.SetActive(false);
+            //Destroy(collision.gameObject);
         }
     }
 }
