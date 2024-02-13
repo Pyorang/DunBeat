@@ -2847,6 +2847,10 @@ MonoBehaviour:
   enemyStatus: {fileID: 84792426}
   comboControl: {fileID: 1484227895}
   timingManager: {fileID: 1824942019}
+  targetMask:
+    serializedVersion: 2
+    m_Bits: 64
+  noteEffect: {fileID: 1824942020}
 --- !u!114 &680313662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35208,7 +35212,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxNoteList: []
-  Center: {fileID: 412255136}
+  center: {fileID: 412255136}
   timingRect:
   - {fileID: 1260664163}
   - {fileID: 252466960}

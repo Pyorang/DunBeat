@@ -4,14 +4,16 @@ using UnityEngine;
 
 public class TimingManager : MonoBehaviour
 {
-
     public List<GameObject> boxNoteList = new List<GameObject>();
 
-    [SerializeField] Transform Center = null;
-    [SerializeField] RectTransform[] timingRect = null;
-    Vector2[] timingBoxs = null;
+    [SerializeField]
+    Transform center;
+    [SerializeField]
+    RectTransform[] timingRect;
     [SerializeField]
     private NoteEffect theEffect;
+
+    Vector2[] timingBoxs = null;
 
     void Start()
     {
@@ -21,13 +23,13 @@ public class TimingManager : MonoBehaviour
 
         for(int i =0; i < timingRect.Length; i++)
         {
-            timingBoxs[i].Set(Center.localPosition.x - timingRect[i].rect.width / 2, 
-                              Center.localPosition.x + timingRect[i].rect.width / 2);
+            timingBoxs[i].Set(center.localPosition.x - timingRect[i].rect.width / 2, 
+                              center.localPosition.x + timingRect[i].rect.width / 2);
 
         }
     }
 
-    public void CheckTiming()
+    public int CheckTiming()
     {
         for(int i=0; i<boxNoteList.Count; i++)
         {
@@ -40,11 +42,17 @@ public class TimingManager : MonoBehaviour
                     boxNoteList[i].GetComponent<Note>().HideNote();
                     theEffect.NoteHitEffectSuccess(x);
                     boxNoteList.RemoveAt(i);
-                    return;
+                    return x;
                 }
             }
         }
 
         theEffect.NoteHitEffectFail();
+        return timingBoxs.Length;
+    }
+
+    public int GetBoxsLength()
+    {
+        return timingBoxs.Length;
     }
 }

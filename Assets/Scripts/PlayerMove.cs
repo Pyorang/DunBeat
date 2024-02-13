@@ -24,6 +24,10 @@ public class PlayerMove : MonoBehaviour
     private Ui_ComboControl comboControl;
     [SerializeField]
     private TimingManager timingManager;
+    [SerializeField]
+    private LayerMask targetMask;       //적 타겟 마스크
+    [SerializeField]
+    private NoteEffect noteEffect;
 
     private Rigidbody2D rb;
 
@@ -133,21 +137,24 @@ public class PlayerMove : MonoBehaviour
         if(!isRolling)
         {
             GameObject enemy = FindNearestEnemy();
-            if (enemy != null)
+            if (enemy != null && enemy.GetComponent<Enemy>().GetCurHp() > 0)
             {
-                if (Vector2.Distance(gameObject.transform.position, enemy.transform.position) <= attackRange && enemy.GetComponent<Enemy>().GetCurHp()>0)
+                if (Input.GetKeyDown(KeyCode.Z))
                 {
-                    if (Input.GetKeyDown(KeyCode.Z))     //리듬 성공할 경우 추가할 것
+                    if(timingManager.CheckTiming() != timingManager.GetBoxsLength())
                     {
-                        timingManager.CheckTiming();
                         Base.GetComponent<Animator>().SetTrigger("isAttack");
                         Hair.GetComponent<Animator>().SetTrigger("isAttack");
-                        enemy.GetComponent<Enemy>().Damaged(gameObject, stats.playerAP);
+                        enemy.GetComponent<Enemy>().Damaged(gameObject, stats.playerAP * noteEffect.GetTimingBonus());
 
                         enemyStatus.ChangeEnemy(enemy);
                         enemyStatus.ShowStatus();
 
                         comboControl.ComboSuccess();
+                    }
+                    else
+                    {
+                        comboControl.ComboFail();
                     }
                 }
             }
@@ -157,16 +164,39 @@ public class PlayerMove : MonoBehaviour
     //가장 가까운 적 찾기
     GameObject FindNearestEnemy()
     {
-        List<GameObject> FoundObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
+        //    List<GameObject> FoundObjects = new List<GameObject>(GameObject.FindGameObjectsWithTag("Enemy"));
 
-        if (FoundObjects.Count > 0)
+        //    if (FoundObjects.Count > 0)
+        //    {
+        //        GameObject enemy = FoundObjects[0];
+        //        float shortDis = Vector2.Distance(gameObject.transform.position, enemy.transform.position);
+
+        //        foreach (GameObject found in FoundObjects)
+        //        {
+        //            float Distance = Vector2.Distance(gameObject.transform.position, found.transform.position);
+
+        //            if (Distance < shortDis)
+        //            {
+        //                enemy = found;
+        //                shortDis = Distance;
+        //            }
+        //        }
+
+        //        return enemy;
+        //    }
+
+        //    else return null;
+
+        Collider2D[] Enemys = Physics2D.OverlapCircleAll(transform.position, attackRange, targetMask);
+
+        if (Enemys.Length != 0)
         {
-            GameObject enemy = FoundObjects[0];
-            float shortDis = Vector2.Distance(gameObject.transform.position, enemy.transform.position);
+            Collider2D enemy = Enemys[0];
+            float shortDis = Vector2.Distance(transform.position, enemy.transform.position);
 
-            foreach (GameObject found in FoundObjects)
+            foreach (Collider2D found in Enemys)
             {
-                float Distance = Vector2.Distance(gameObject.transform.position, found.transform.position);
+                float Distance = Vector2.Distance(transform.position, found.transform.position);
 
                 if (Distance < shortDis)
                 {
@@ -175,7 +205,7 @@ public class PlayerMove : MonoBehaviour
                 }
             }
 
-            return enemy;
+            return enemy.gameObject;
         }
 
         else return null;

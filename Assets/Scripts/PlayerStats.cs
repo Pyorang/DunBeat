@@ -7,7 +7,7 @@ public class PlayerStats : MonoBehaviour
     public bool isInvincible;
 
     public int playerHP;
-    public int playerAP;
+    public float playerAP;
     public int doorStageNum;
     public int doorWaveNum;
     public bool isDead;

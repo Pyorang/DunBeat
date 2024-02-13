@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 624383296399270772}
   - component: {fileID: 3002891808603030006}
   - component: {fileID: 4921400085310964723}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Goblin
   m_TagString: Enemy
   m_Icon: {fileID: 0}

@@ -7,7 +7,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected string monsterName;
     [SerializeField]
-    protected int maxHP;          //최대 HP
+    protected float maxHP;          //최대 HP
     [SerializeField]
     protected float eyeDistance;    //시야
     [SerializeField]
@@ -15,7 +15,7 @@ public class Enemy : MonoBehaviour
     [SerializeField]
     protected float attackRange;      //공격 범위
     [SerializeField]
-    protected int currentHP;      //현재 HP
+    protected float currentHP;      //현재 HP
     [SerializeField]
     protected float dieAnimTime;    //죽는데 걸리는 시간
 
@@ -118,7 +118,7 @@ public class Enemy : MonoBehaviour
     }
 
     //데미지 적용 함수
-    public void Damaged(GameObject gameobject, int damage)
+    public void Damaged(GameObject gameobject, float damage)
     {
         currentHP -= damage;
         if (currentHP <= 0)
@@ -156,8 +156,8 @@ public class Enemy : MonoBehaviour
         yield return null;
     }
 
-    public int GetMaxHp() { return maxHP; }
-    public int GetCurHp() { return currentHP; }
+    public float GetMaxHp() { return maxHP; }
+    public float GetCurHp() { return currentHP; }
 
     IEnumerator DestroyEnemy()
     {
