@@ -41,8 +41,8 @@ public class Ui_ComboControl : MonoBehaviour
 
         anim.SetTrigger("comboSuccess");
 
-        StopCoroutine("HideCombo");
-        StartCoroutine("HideCombo");
+        StopCoroutine(HideCombo());
+        StartCoroutine(HideCombo());
     }
     
     public void ComboFail()

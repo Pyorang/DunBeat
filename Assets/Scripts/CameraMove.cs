@@ -20,7 +20,7 @@ public class CameraMove : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void LateUpdate()
     {
         if (rb != null)
             gameObject.transform.position = new Vector3(rb.transform.position.x + regulateX, rb.transform.position.y + regulateY, -10);

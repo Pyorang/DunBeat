@@ -40,7 +40,7 @@ public class Spikes : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         PlayerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
         isAttacking = false;
-        StartCoroutine("SCnTOr");
+        StartCoroutine(SCnTOr());
     }
 
     void Update()

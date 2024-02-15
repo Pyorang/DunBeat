@@ -17,8 +17,8 @@ public class UI_EnemyStatus : MonoBehaviour
     {
         enemyName.SetActive(true);
         enemyHealthBar.SetActive(true);
-        StopCoroutine("HideStatus");
-        StartCoroutine("HideStatus");
+        StopCoroutine(HideStatus());
+        StartCoroutine(HideStatus());
     }
 
     public void Hide_Status()
