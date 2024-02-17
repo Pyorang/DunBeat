@@ -13,10 +13,6 @@ public class SelectSkillInfo
 
 public class UI_Skill : MonoBehaviour
 {
-    void Start()
-    {
-        ShowSkillInfo();
-    }
 
     [SerializeField]
     private Text[] gameSkillName;   //게임에 뜰 특성 이름 텍스트들
@@ -35,6 +31,14 @@ public class UI_Skill : MonoBehaviour
 
     [SerializeField]
     private PlayerMove playerMove;
+
+    [SerializeField]
+    private UI_PauseMenu pauseMenu;
+
+    void Start()
+    {
+        ShowSkillInfo();
+    }
 
     //특성 섞어주는 함수
     void Shuffle()
@@ -89,6 +93,8 @@ public class UI_Skill : MonoBehaviour
 
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;
         string selectedSkillName = clickObject.transform.GetChild(0).GetComponent<Text>().text;
+
+        pauseMenu.skillNames.Add(selectedSkillName);
 
         switch (selectedSkillName)
         {

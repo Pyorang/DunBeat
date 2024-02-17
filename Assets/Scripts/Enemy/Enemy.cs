@@ -98,7 +98,7 @@ public class Enemy : MonoBehaviour
     //¿Ãµø
     protected void Moving()
     {
-        if (isBattle)
+        if (isBattle && !isDead)
         {
             isMoving = true;
             rb.velocity = (player.transform.position - transform.position).normalized * enemySpeed;
@@ -136,10 +136,12 @@ public class Enemy : MonoBehaviour
     protected void Die()
     {
         isDead = true;
-        rb.velocity = Vector2.zero;
         anim.SetTrigger("isDead");
 
         StopCoroutine(Battle());
+
+        rb.velocity = Vector2.zero;
+
         StartCoroutine(DestroyEnemy());
     }
 

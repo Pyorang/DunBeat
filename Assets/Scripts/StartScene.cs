@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class StartScene : MonoBehaviour
 {
-
     void Update()
     {
         if (Input.GetMouseButtonDown(0))
