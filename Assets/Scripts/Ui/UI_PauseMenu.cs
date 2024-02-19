@@ -93,7 +93,14 @@ public class UI_PauseMenu : MonoBehaviour
     public void ClickGoToMain()
     {
         SceneManager.LoadScene("StartScene");
+        GameManager.instance.ResetStageInfo();
         Time.timeScale = 1f;
+        AudioSource[] audioSource = SoundManager.instance.GetComponents<AudioSource>();
+        for (int i = 0; i < audioSource.Length; i++)
+        {
+            audioSource[i].pitch = 1f;
+        }
+        SoundManager.instance.StopAllSE();
     }
 
     public void ClickExitGame()

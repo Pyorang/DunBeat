@@ -124,7 +124,7 @@ public class UI_Skill : MonoBehaviour
     
     void SKill1()
     {
-        playerStats.playerAP += 5;
+        GameManager.instance.currentPlayerAp += 5;
     }
 
     void Skill2()

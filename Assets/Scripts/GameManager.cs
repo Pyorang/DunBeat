@@ -28,14 +28,23 @@ public class GameManager : MonoBehaviour
     }
     #endregion singleton
 
-    public int currentPlayerHealth;     
+    [SerializeField]
+    private int startPlayerHealth;
+    [SerializeField]
+    private float startPlayerAp;
+
+    public int currentPlayerHealth;
+    public float currentPlayerAp;
+    public float currentTimingBonus;
     public int currentStageIndex;       //현재 스테이지 넘버
     public int currentEnemyCount;       //현재 웨이브에서 처리해야 할 몬스터 수
     public int currentWaveNum;          //현재 웨이브 넘버
     public bool goNextWave;
 
+    public GameObject currentEnemy;
     public stageInfo[] Stages;
     public NextWaveDoor nextDoor;
+    public UI_EnemyStatus enemyStaus;
 
     void Start()
     {
@@ -45,7 +54,7 @@ public class GameManager : MonoBehaviour
         currentWaveNum = 0;
     }
 
-    public void nextWave()
+    public void NextWave()
     {
         if (goNextWave)
         {
@@ -61,7 +70,7 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void nextStage()
+    public void NextStage()
     {
         if(goNextWave)
         {
@@ -72,16 +81,25 @@ public class GameManager : MonoBehaviour
                     currentWaveNum = 0;
                     currentStageIndex++;
                     currentEnemyCount = Stages[currentStageIndex].waveEnemyCount[currentWaveNum];
+                    SoundManager.instance.NextMusicTimeNote();
                     goNextWave = false;
                 }
             }
         }
     }
 
-    public void resetStageInfo()
+    public void ResetStageInfo()
     {
+        goNextWave = true;
         currentStageIndex = 0;
         currentEnemyCount = 0;
         currentWaveNum = 0;
+        SoundManager.instance.ResettMusicTimeNote();
+    }
+
+    public void ResetPlayerStatus()
+    {
+        currentPlayerHealth = startPlayerHealth;
+        currentPlayerAp = startPlayerAp;
     }
 }

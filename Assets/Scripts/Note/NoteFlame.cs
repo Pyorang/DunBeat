@@ -12,7 +12,7 @@ public class NoteFlame : MonoBehaviour
         {
             if (collision.CompareTag("Note"))
             {
-                SoundManager.instance.PlayBGM("Stage1");
+                SoundManager.instance.PlayBGM(SoundManager.instance.bgmSounds[SoundManager.instance.GetMusicNum() - 1].name);
                 musicStart = true;
             }
         }

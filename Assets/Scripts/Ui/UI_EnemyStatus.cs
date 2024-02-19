@@ -13,6 +13,11 @@ public class UI_EnemyStatus : MonoBehaviour
     [SerializeField]
     private Image enemyHealthBarFill;
 
+    void Start()
+    {
+        GameManager.instance.enemyStaus = this;
+    }
+
     public void ShowStatus()
     {
         enemyName.SetActive(true);
@@ -40,6 +45,5 @@ public class UI_EnemyStatus : MonoBehaviour
         enemyName.GetComponent<Text>().text = _enemy.GetName();
         enemyHealthBarFill.fillAmount = _enemy.GetCurHp()/_enemy.GetMaxHp();
     }
-
 
 }

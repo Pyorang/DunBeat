@@ -10,9 +10,9 @@ public class StartScene : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
+            GameManager.instance.ResetPlayerStatus();
             SceneManager.LoadScene("Stage1");
-            GameManager.instance.nextStage();
+            GameManager.instance.NextStage();
         }
     }
-
 }

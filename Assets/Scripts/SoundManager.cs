@@ -35,8 +35,15 @@ public class SoundManager : MonoBehaviour
     public Sound[] effectSounds;
     public Sound[] bgmSounds;
 
+    [SerializeField]
+    private MusicTimeNote currentMusicTimeNotes;
+    private int currentMusicIndex;
+    public MusicTimeNote[] musicTimeNotes;
+
     void Strat()
     {
+        currentMusicIndex = 0;
+        currentMusicTimeNotes = musicTimeNotes[currentMusicIndex];
         playSoundName = new string[audioSourceEffects.Length];
     }
 
@@ -69,6 +76,8 @@ public class SoundManager : MonoBehaviour
         {
             audioSourceEffects[i].Stop();
         }
+
+        audioSourceBgm.Stop();
     }
 
     public void StopSE(string _name)
@@ -96,5 +105,27 @@ public class SoundManager : MonoBehaviour
             }
         }
         Debug.Log(_name + "사운드가 SoundManager에 등록되지 않았습니다.");
+    }
+
+    public void NextMusicTimeNote()
+    {
+        currentMusicIndex++;
+        currentMusicTimeNotes = musicTimeNotes[currentMusicIndex];
+    }
+
+    public void ResettMusicTimeNote()
+    {
+        currentMusicIndex = 0;
+        currentMusicTimeNotes = musicTimeNotes[currentMusicIndex];
+    }
+
+    public MusicTimeNote GetMusicTimeNote()
+    {
+        return currentMusicTimeNotes;
+    }
+
+    public int GetMusicNum()
+    {
+        return currentMusicIndex;
     }
 }

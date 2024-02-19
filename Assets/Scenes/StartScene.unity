@@ -519,6 +519,10 @@ MonoBehaviour:
   bgmSounds:
   - name: Stage1
     clip: {fileID: 8300000, guid: 85ca9b65d7f7feb4f98994e1ffda8dd4, type: 3}
+  currentMusicTimeNotes: {fileID: 0}
+  musicTimeNotes:
+  - {fileID: 0}
+  - {fileID: 11400000, guid: 88ab2d13de9712944915be67f214422f, type: 2}
 --- !u!4 &1275220564
 Transform:
   m_ObjectHideFlags: 0
@@ -563,17 +567,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 72b0a0685e6b98241970d12b2b1ab79f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startPlayerHealth: 3
+  startPlayerAp: 5
   currentPlayerHealth: 0
+  currentPlayerAp: 0
+  currentTimingBonus: 0
   currentStageIndex: 0
   currentEnemyCount: 0
   currentWaveNum: 0
   goNextWave: 0
+  currentEnemy: {fileID: 0}
   Stages:
   - StageIndex: 0
     waveEnemyCount: 00000000
   - StageIndex: 1
     waveEnemyCount: 01000000
   nextDoor: {fileID: 0}
+  enemyStaus: {fileID: 0}
 --- !u!4 &1497382573
 Transform:
   m_ObjectHideFlags: 0

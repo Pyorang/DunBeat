@@ -11,7 +11,7 @@ public class NextLevelExit : MonoBehaviour
         {
             string nextStage = "Stage" + (GameManager.instance.currentStageIndex + 1);
             Debug.Log(nextStage);
-            GameManager.instance.nextStage();
+            GameManager.instance.NextStage();
             SceneManager.LoadScene(nextStage);
         }
     }

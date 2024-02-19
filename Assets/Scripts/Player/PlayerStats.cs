@@ -6,8 +6,6 @@ public class PlayerStats : MonoBehaviour
 {
     public bool isInvincible;
 
-    public int playerHP;
-    public float playerAP;
     public int doorStageNum;
     public int doorWaveNum;
     public bool isDead;
@@ -35,7 +33,6 @@ public class PlayerStats : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         uh = playerStatus.GetComponent<UI_Health>();
-        GameManager.instance.currentPlayerHealth = playerHP;
     }
 
     void Update()
@@ -47,7 +44,6 @@ public class PlayerStats : MonoBehaviour
 
     public void Heal()
     {
-        playerHP++;
         GameManager.instance.currentPlayerHealth++;
         uh.ChangeHealthUI();
     }
@@ -55,12 +51,11 @@ public class PlayerStats : MonoBehaviour
     public void Hurt()
     {
         isInvincible = true;
-        playerHP--;
         GameManager.instance.currentPlayerHealth--;
         uh.ChangeHealthUI();
 
         //Á×À½ Ã³¸®
-        if (playerHP == 0)
+        if (GameManager.instance.currentPlayerHealth == 0)
             Die();
 
         else
@@ -91,7 +86,7 @@ public class PlayerStats : MonoBehaviour
         Base.GetComponent<Animator>().SetTrigger("isDead");
         Hair.GetComponent<Animator>().SetTrigger("isDead");
 
-        GameManager.instance.resetStageInfo();
+        GameManager.instance.ResetStageInfo();
 
         StartCoroutine(DestroyPlayer());
     }
@@ -117,7 +112,6 @@ public class PlayerStats : MonoBehaviour
         RaycastHit2D hit = Physics2D.Raycast(rb.position, goDirection, 1, LayerMask.GetMask("Door"));
         if (hit.collider != null)
         {
-            Debug.Log(hit.collider.name);
             hit.collider.GetComponent<NextWaveDoor>().DoorOpen();
         }
     }

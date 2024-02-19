@@ -15,7 +15,7 @@ public class NextWaveDoor : MonoBehaviour
         {
             if(GameManager.instance.goNextWave)
             {
-                GameManager.instance.nextWave();
+                GameManager.instance.NextWave();
                 Destroy(gameObject);
             }
         }

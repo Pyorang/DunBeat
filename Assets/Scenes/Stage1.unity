@@ -3755,7 +3755,7 @@ MonoBehaviour:
   targetMask:
     serializedVersion: 2
     m_Bits: 64
-  noteEffect: {fileID: 1824942020}
+  bulletPrefab: {fileID: 5639129619987502294, guid: d39ed12bed35c0d4f8f47b974c9d86b9, type: 3}
 --- !u!114 &680313662
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3769,8 +3769,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isInvincible: 0
-  playerHP: 3
-  playerAP: 10
   doorStageNum: 0
   doorWaveNum: 0
   isDead: 0
@@ -37395,7 +37393,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e52f599a70712cb42a89d8ef3f035ca9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  noteIndex: 0
   bpm: 120
+  musicTimeNote: {fileID: 0}
   tfNoteAppear: {fileID: 261536540}
 --- !u!61 &1824942018
 BoxCollider2D:

@@ -15,14 +15,17 @@ public class UI_Health : MonoBehaviour
 
     public void ChangeHealthUI()
     {
-        for (int j = 0; j < GameManager.instance.currentPlayerHealth; j++)
+        if(GameManager.instance.currentPlayerHealth >= 0)
         {
-            HealthImage[j].color = new Color(255f/255f, 255f / 255f, 255f / 255f, 255f / 255f);
-        }
+            for (int j = 0; j < GameManager.instance.currentPlayerHealth; j++)
+            {
+                HealthImage[j].color = new Color(255f / 255f, 255f / 255f, 255f / 255f, 255f / 255f);
+            }
 
-        for (int j = GameManager.instance.currentPlayerHealth; j < HealthImage.Length; j++)
-        {
-            HealthImage[j].color = new Color(65f/255f, 65f / 255f, 65f / 255f, 65f / 255f);
+            for (int j = GameManager.instance.currentPlayerHealth; j < HealthImage.Length; j++)
+            {
+                HealthImage[j].color = new Color(65f / 255f, 65f / 255f, 65f / 255f, 65f / 255f);
+            }
         }
     }
 }
