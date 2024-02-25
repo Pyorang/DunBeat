@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerStats : MonoBehaviour
 {
@@ -50,30 +51,33 @@ public class PlayerStats : MonoBehaviour
 
     public void Hurt()
     {
-        isInvincible = true;
-        GameManager.instance.currentPlayerHealth--;
-        uh.ChangeHealthUI();
-
-        //磷澜 贸府
-        if (GameManager.instance.currentPlayerHealth == 0)
-            Die();
-
-        else
+        if(!isInvincible)
         {
-            if(!isDead)
+            isInvincible = true;
+            GameManager.instance.currentPlayerHealth--;
+            uh.ChangeHealthUI();
+
+            //磷澜 贸府
+            if (GameManager.instance.currentPlayerHealth == 0)
+                Die();
+
+            else
             {
-                pm.canRolling = false;
+                if (!isDead)
+                {
+                    pm.canRolling = false;
 
-                Base.GetComponent<SpriteRenderer>().color = new Color(191 / 255f, 191 / 255f, 191 / 255f, 255 / 255f);
-                Hair.GetComponent<SpriteRenderer>().color = new Color(191 / 255f, 191 / 255f, 191 / 255f, 255 / 255f);
+                    Base.GetComponent<SpriteRenderer>().color = new Color(191 / 255f, 191 / 255f, 191 / 255f, 255 / 255f);
+                    Hair.GetComponent<SpriteRenderer>().color = new Color(191 / 255f, 191 / 255f, 191 / 255f, 255 / 255f);
 
-                Base.GetComponent<Animator>().SetTrigger("isHurt");
-                Hair.GetComponent<Animator>().SetTrigger("isHurt");
+                    Base.GetComponent<Animator>().SetTrigger("isHurt");
+                    Hair.GetComponent<Animator>().SetTrigger("isHurt");
+                }
             }
-        }
 
-        StartCoroutine(InvincibleOff());
-        StartCoroutine(EndHurtAnim());
+            StartCoroutine(InvincibleOff());
+            StartCoroutine(EndHurtAnim());
+        }
     }
 
     private void Die()
@@ -134,5 +138,6 @@ public class PlayerStats : MonoBehaviour
     {
         yield return new WaitForSeconds(3f);
         Destroy(gameObject);
+        SceneManager.LoadScene("DieScene");
     }
 }

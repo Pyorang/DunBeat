@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class UI_PauseMenu : MonoBehaviour
 {
-    public List<string> skillNames;
     private float saveCurTimeScale;
     private bool pauseMenuOn;
 
@@ -111,10 +110,6 @@ public class UI_PauseMenu : MonoBehaviour
 
     void SetSkillList()
     {
-        skillInfoLookScreenText.text = "";
-        for (int i=0; i<skillNames.Count; i++)
-        {
-            skillInfoLookScreenText.text += skillNames[i] + "\n";
-        }
+        skillInfoLookScreenText.text = GameManager.instance.skillViewText;
     }
 }

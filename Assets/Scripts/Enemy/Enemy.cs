@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
 
     protected bool isDead;      //죽었는지
     protected bool isDamaged;     //플레이어에게 데미지를 입은 경우
+    protected bool isImmune;        //면역 상태인지
     protected bool isAttacking;     //공격하고 있는 경우
     protected bool isMoving;        //이동하고 있는 경우
     protected bool hasDetected;   //플레이어를 탐지한 경우
@@ -40,6 +41,7 @@ public class Enemy : MonoBehaviour
         currentHP = maxHP;
         isDead = false;
         isDamaged = false;
+        isImmune = false;
         hasDetected = false;
         isBattle = false;
         rb = GetComponent<Rigidbody2D>();
@@ -67,7 +69,7 @@ public class Enemy : MonoBehaviour
     }
 
     //전투 시작전 -> 시작 후로 바꿔주기
-    protected void BeforeBattle()
+    protected virtual void BeforeBattle()
     {
         if (!isBattle)
         {
@@ -106,7 +108,7 @@ public class Enemy : MonoBehaviour
     }
 
     //공격 함수
-    protected void Attack()
+    protected virtual void Attack()
     {
         isAttacking = true;
         anim.SetTrigger("isAttack");
@@ -120,20 +122,33 @@ public class Enemy : MonoBehaviour
     //데미지 적용 함수
     public void Damaged(GameObject gameobject, float damage)
     {
-        currentHP -= damage;
-        if (currentHP <= 0)
-            Die();
-        else
+        if(!isImmune)
         {
-            isDamaged = true;
-            if (!(isAttacking || isMoving))
-                anim.SetTrigger("isHurt");
-            else StartCoroutine(HurtColorChange());
+            currentHP -= damage;
+            if (currentHP < (maxHP / 2))
+                LowHP();
+            if (currentHP <= 0)
+                Die();
+            else
+            {
+                isDamaged = true;
+                if (!(isAttacking || isMoving))
+                {
+                    anim.SetTrigger("isHurt");
+                }
+                else
+                    StartCoroutine(HurtColorChange());
+            }
         }
     }
 
+    protected virtual void LowHP()
+    {
+
+    }
+
     //적 죽음 처리
-    protected void Die()
+    protected virtual void Die()
     {
         isDead = true;
         anim.SetTrigger("isDead");
@@ -161,7 +176,7 @@ public class Enemy : MonoBehaviour
     public float GetMaxHp() { return maxHP; }
     public float GetCurHp() { return currentHP; }
 
-    IEnumerator DestroyEnemy()
+    protected IEnumerator DestroyEnemy()
     {
         yield return new WaitForSeconds(dieAnimTime);
         Destroy(gameObject);

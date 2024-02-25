@@ -94,7 +94,7 @@ public class UI_Skill : MonoBehaviour
         GameObject clickObject = EventSystem.current.currentSelectedGameObject;
         string selectedSkillName = clickObject.transform.GetChild(0).GetComponent<Text>().text;
 
-        pauseMenu.skillNames.Add(selectedSkillName);
+        GameManager.instance.skillViewText += "\n" + selectedSkillName;
 
         switch (selectedSkillName)
         {
@@ -129,12 +129,12 @@ public class UI_Skill : MonoBehaviour
 
     void Skill2()
     {
-        playerMove.moveSpeed *= 1.2f;
+        GameManager.instance.playerMoveSpeed *= 1.2f;
     }
 
     void Skill3()
     {
-        playerMove.attackRange *= 1.2f;
+        GameManager.instance.playerAttackRange *= 1.2f;
     }
 
     void Skill4()

@@ -195,8 +195,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   monsterName: "\uACE0\uBE14\uB9B0"
   maxHP: 100
-  eyeDistance: 0
-  enemySpeed: 0
+  eyeDistance: 4
+  enemySpeed: 3
   attackRange: 2.2
   currentHP: 0
-  dieAnimTime: 0
+  dieAnimTime: 0.7

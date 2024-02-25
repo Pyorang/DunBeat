@@ -4,9 +4,6 @@ using UnityEngine;
 
 public class PlayerMove : MonoBehaviour
 {
-    public float moveSpeed;    //이동속도
-    public float attackRange;      //공격 사거리
-
     public float RollingCoolTime; //구르기 쿨타임
     public bool isRolling;       //구르기 여부
     public bool isMoving;       //움직이고 있는지
@@ -47,6 +44,7 @@ public class PlayerMove : MonoBehaviour
 
     void Update()
     {
+        GameManager.instance.playerPosition = gameObject.transform.position;
         if(!stats.isDead)
         {
             Move();
@@ -82,7 +80,7 @@ public class PlayerMove : MonoBehaviour
     void Move()
     {
         if(!isRolling)
-            rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0).normalized * moveSpeed;
+            rb.velocity = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0).normalized * GameManager.instance.playerMoveSpeed;
 
         if (rb.velocity != Vector2.zero)
         {
@@ -142,6 +140,7 @@ public class PlayerMove : MonoBehaviour
                 {
                     if(timingManager.CheckTiming() != timingManager.GetBoxsLength())
                     {
+                        SoundManager.instance.PlaySE("Tap");
                         Base.GetComponent<Animator>().SetTrigger("isAttack");
                         Hair.GetComponent<Animator>().SetTrigger("isAttack");
                         Instantiate(bulletPrefab, gameObject.transform.position, Quaternion.identity);
@@ -159,7 +158,7 @@ public class PlayerMove : MonoBehaviour
     //가장 가까운 적 찾기
     GameObject FindNearestEnemy()
     {
-        Collider2D[] Enemys = Physics2D.OverlapCircleAll(transform.position, attackRange, targetMask);
+        Collider2D[] Enemys = Physics2D.OverlapCircleAll(transform.position, GameManager.instance.playerAttackRange, targetMask);
 
         if (Enemys.Length != 0)
         {

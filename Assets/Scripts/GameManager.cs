@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class stageInfo
@@ -32,14 +33,22 @@ public class GameManager : MonoBehaviour
     private int startPlayerHealth;
     [SerializeField]
     private float startPlayerAp;
+    [SerializeField]
+    private float startPlayerAttackRange;
+    [SerializeField]
+    private float startPlayerMoveSpeed;
 
     public int currentPlayerHealth;
     public float currentPlayerAp;
     public float currentTimingBonus;
+    public float playerMoveSpeed;
+    public float playerAttackRange;
     public int currentStageIndex;       //현재 스테이지 넘버
     public int currentEnemyCount;       //현재 웨이브에서 처리해야 할 몬스터 수
     public int currentWaveNum;          //현재 웨이브 넘버
     public bool goNextWave;
+    public Vector3 playerPosition;
+    public string skillViewText;
 
     public GameObject currentEnemy;
     public stageInfo[] Stages;
@@ -82,6 +91,12 @@ public class GameManager : MonoBehaviour
                     currentStageIndex++;
                     currentEnemyCount = Stages[currentStageIndex].waveEnemyCount[currentWaveNum];
                     SoundManager.instance.NextMusicTimeNote();
+                    AudioSource[] audioSource = SoundManager.instance.GetComponents<AudioSource>();
+                    for (int i = 0; i < audioSource.Length; i++)
+                    {
+                        audioSource[i].pitch = 1f;
+                    }
+                    SoundManager.instance.StopAllSE();
                     goNextWave = false;
                 }
             }
@@ -101,5 +116,8 @@ public class GameManager : MonoBehaviour
     {
         currentPlayerHealth = startPlayerHealth;
         currentPlayerAp = startPlayerAp;
+        skillViewText = "";
+        playerAttackRange = startPlayerAttackRange;
+        playerMoveSpeed = startPlayerMoveSpeed;
     }
 }
